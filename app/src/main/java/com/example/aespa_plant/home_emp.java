@@ -39,8 +39,6 @@ public class home_emp extends AppCompatActivity {
     private TextView uname;
 
     private DatabaseReference mDatabase;
-
-
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,31 +65,42 @@ public class home_emp extends AppCompatActivity {
             }
         });
 
-
-        toprofile = (ImageView) findViewById(R.id.toprofile);
-        toprofile.setOnClickListener(new View.OnClickListener() {
+        databaseReference.child("table").child(uid).child("plant_kind").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                databaseReference.child("table").child(uid).child("plant_kind").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()){
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    toprofile = (ImageView) findViewById(R.id.toprofile);
+
+                    toprofile.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
                             Log.e("test",  "식물 이미 구매함");
                             Intent intent = new Intent(home_emp.this, profileEdit.class);
                             startActivity(intent);
                         }
-                        else{
+                    });
+                }
+                else{
+                    toprofile = (ImageView) findViewById(R.id.toprofile);
+
+                    toprofile.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
                             Toast.makeText(home_emp.this, "식물을 구매하지 않음. 쇼핑먼저 plz", Toast.LENGTH_SHORT).show();
                             Log.e("test",  "식물을 구매하지 않음 쇼핑먼저");
-                        }
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
-            }
-        });
 
+
+                        }
+
+                    });
+                }
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+
+        });
         toshop = (ImageView) findViewById(R.id.toshop);
         toshop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,4 +111,6 @@ public class home_emp extends AppCompatActivity {
         });
 
     }
+
+
 }

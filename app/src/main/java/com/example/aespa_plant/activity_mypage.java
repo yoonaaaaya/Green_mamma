@@ -21,10 +21,12 @@ import com.google.firebase.database.FirebaseDatabase;
 public class activity_mypage extends AppCompatActivity {
 
     public FirebaseAuth mAuth;
+    private DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference();
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener firebaseAuthListener;
 
     private ImageView back;
     private ImageView logout;
-
 
     private ImageView tomato;
     private ImageView cosmos;
@@ -39,7 +41,7 @@ public class activity_mypage extends AppCompatActivity {
     private TextView email;
     private TextView uname;
 
-    private DatabaseReference mDatabase;
+    //private DatabaseReference mDatabase;
 
 
     @SuppressLint("MissingInflatedId")
@@ -100,26 +102,6 @@ public class activity_mypage extends AppCompatActivity {
         });
 
 
-   /* public void addmoisture() {
-        databaseReference.child("User").child("Moisture_degree").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //파이어베이스에서 아두이노 kit_n 값 가져오기
-                int moisture_degree = (int) snapshot.getValue(Integer.class);
-                Log.v("test", moisture_degree+"가져와쏘용");
-                databaseReference.child("table").child(uid).child("uid").child("moisture_degree").setValue(moisture_degree);
-                Intent intent1 = new Intent(profileEdit.this, home_prof.class);
-                startActivity(intent1);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.v("test", "값 읽기 실패");
-
-            }
-        });
-
-    }*/
-
         mDatabase.child("table").child(uid).child("plant_kind").child("shop_num").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -172,17 +154,23 @@ public class activity_mypage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                mAuth.signOut();
-                mAuth = null;
-                mDatabase = null;
-                Intent intent_logout = new Intent(activity_mypage.this, home_prof.class);
-                intent_logout.putExtra("logout",true);
+                //Intent intent_logout = new Intent(activity_mypage.this, home_prof.class);
+                //intent_logout.putExtra("logout","true");
                 Intent intent = new Intent(activity_mypage.this, Act_login.class);
                 startActivity(intent);
+                onStop();
                 finish();
 
 
             }
         });
+    }
+    protected void onStop() {
+        super.onStop();
+        firebaseAuth.signOut();
+        //mAuth = null;
+        if (firebaseAuthListener != null) {
+            firebaseAuth.removeAuthStateListener(firebaseAuthListener);
+        }
     }
 }

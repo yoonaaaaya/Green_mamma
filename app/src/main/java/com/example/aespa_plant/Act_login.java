@@ -43,6 +43,7 @@ public class Act_login extends AppCompatActivity {
     private EditText editTextPassword;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -90,6 +91,11 @@ public class Act_login extends AppCompatActivity {
                 }
             }
         };
+
+        boolean logout = getIntent().getBooleanExtra("logout",false);
+        if(logout == true){
+            onStop();
+        }
     }
 
 
@@ -112,6 +118,8 @@ public class Act_login extends AppCompatActivity {
             }
 
         });
+
+
     }
 
     public void checkkit(){
@@ -153,6 +161,7 @@ public class Act_login extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+
         if (firebaseAuthListener != null) {
             firebaseAuth.removeAuthStateListener(firebaseAuthListener);
         }

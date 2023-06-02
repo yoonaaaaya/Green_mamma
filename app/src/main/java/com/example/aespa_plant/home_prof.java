@@ -89,7 +89,6 @@ public class home_prof<mAuth> extends AppCompatActivity {
         flower_happy.setVisibility(View.INVISIBLE);
         flower_sad.setVisibility(View.INVISIBLE);
         nothing.setVisibility(View.INVISIBLE);
-        boolean logout = getIntent().getBooleanExtra("logout",false);
 
         String uid = user.getUid();
 
