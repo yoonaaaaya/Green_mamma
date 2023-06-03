@@ -4,6 +4,9 @@
   <p align = "center">Green Mamma는 사용자가 어플을 통해 쉽게 반려식물을 키울 수 있도록 서비스를 제공하는 어플입니다. </p>
 <p align = "center"></p>  
 
+## :computer:사용 스택  
+<img src="https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=firebase&logoColor=white"/> <img src="https://img.shields.io/badge/Arduino-139aa0?style=flat&logo=Arduino&logoColor=white"/> <img src="https://img.shields.io/badge/AdroidStudio-3DDC84?style=flat&logo=AdroidStudio&logoColor=white"/>  <img src="https://img.shields.io/badge/Java-e11f20?style=flat&logo=JAVA&logoColor=white"/>  
+
 ## <p align = "center">:gift:제공기능 :gift:</p>  
   ### <p align = "center">:closed_lock_with_key: 1. 로그인 :closed_lock_with_key:</p>  
 
